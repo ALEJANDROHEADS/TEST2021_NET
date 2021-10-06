@@ -1,0 +1,81 @@
+﻿@model WebAppHeadsBooks.Models.Login
+
+@{
+    ViewBag.Title = "TRAVEL LIB";
+}
+
+
+<div class="row">
+
+
+    <div class="login-page">
+        @if (ViewBag.MensajeAlert != "")
+        {
+            <div class="col-lg-8 ">
+                <div class="alert @ViewBag.TipoAlert  alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa @ViewBag.IconeAlert"></i> @ViewBag.TitleAlert</h4>
+                    @ViewBag.MensajeAlert
+                </div>
+            </div>
+        }
+
+        <div class="login-box">
+            <!-- /.login-logo -->
+            <div class="card card-outline card-primary">
+                <div class="card-header text-center">
+                    
+                </div>
+                <div class="card-body">
+                    <a href="../Home/Index" class="h1">Biblioteca <b>TRAVEL</b></a>
+
+                    <p class="login-box-msg mt-5  m-2">Iniciar session para ingresar a la bibioteca</p>
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { name = "FrmLogin", id = "FrmLogin", novalidate = false }))
+                            {
+
+                            <div class="col-md-10 col-sm-offset-1 ">
+                                <div class="form-group m-3">
+                                    <input class="form-control text-box single-line" id="usuario" name="usuario" placeholder="usuario  " type="text" value="">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-envelope"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-3 ">
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        <div class="col-md-12 mt-5 mb-4">
+
+                            <div class="col-md-6">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="remember">
+                                    <label for="remember">
+                                        Remember Me
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-block">Ingresar </button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    }
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+</div>

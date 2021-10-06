@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBHeadsModelStoreContainer" CdmEntityContainer="DBHeadsEntities2">
+    <EntitySetMapping Name="Autores">
+      <EntityTypeMapping TypeName="DBHeadsModel.Autores">
+        <MappingFragment StoreEntitySet="Autores">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Editoriales">
+      <EntityTypeMapping TypeName="DBHeadsModel.Editoriales">
+        <MappingFragment StoreEntitySet="Editoriales">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="sede" ColumnName="sede" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Libros">
+      <EntityTypeMapping TypeName="DBHeadsModel.Libros">
+        <MappingFragment StoreEntitySet="Libros">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="titulo" ColumnName="titulo" />
+          <ScalarProperty Name="sinopsis" ColumnName="sinopsis" />
+          <ScalarProperty Name="n_paginas" ColumnName="n_paginas" />
+          <ScalarProperty Name="editorial_id" ColumnName="editorial_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Autores_has_libros" TypeName="DBHeadsModel.Autores_has_libros" StoreEntitySet="Autores_has_libros">
+      <EndProperty Name="Libros">
+        <ScalarProperty Name="id" ColumnName="libros_id" />
+      </EndProperty>
+      <EndProperty Name="Autores">
+        <ScalarProperty Name="id" ColumnName="autores_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="sp_listar_biblioteca" FunctionName="DBHeadsModel.Store.sp_listar_biblioteca">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DBHeadsModel.sp_listar_biblioteca_Result">
+          <ScalarProperty Name="Autor" ColumnName="Autor" />
+          <ScalarProperty Name="Editorial" ColumnName="Editorial" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="Num_Paginas" ColumnName="Num Paginas" />
+          <ScalarProperty Name="Sinopsis" ColumnName="Sinopsis" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tusuario">
+      <EntityTypeMapping TypeName="DBHeadsModel.tusuario">
+        <MappingFragment StoreEntitySet="tusuario">
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

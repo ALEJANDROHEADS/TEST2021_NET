@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBHeadsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Autores">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="55" />
+    <Property Name="apellidos" Type="varchar" MaxLength="55" />
+  </EntityType>
+  <EntityType Name="Autores_has_libros">
+    <Key>
+      <PropertyRef Name="autores_id" />
+      <PropertyRef Name="libros_id" />
+    </Key>
+    <Property Name="autores_id" Type="int" Nullable="false" />
+    <Property Name="libros_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Editoriales">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="55" />
+    <Property Name="sede" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="Libros">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="titulo" Type="varchar" MaxLength="55" />
+    <Property Name="sinopsis" Type="varchar" MaxLength="5550" />
+    <Property Name="n_paginas" Type="varchar" MaxLength="5" />
+    <Property Name="editorial_id" Type="int" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'D:\DEVELOPMET\APPNETHEADS\BASEDATOS\DBHEADS.MDF.dbo.tusuario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="tusuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="usuario" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <Association Name="Haslibros_FK">
+    <End Role="Libros" Type="Self.Libros" Multiplicity="1" />
+    <End Role="Autores_has_libros" Type="Self.Autores_has_libros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Libros">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Autores_has_libros">
+        <PropertyRef Name="libros_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HaslibrosAutores_FK">
+    <End Role="Autores" Type="Self.Autores" Multiplicity="1" />
+    <End Role="Autores_has_libros" Type="Self.Autores_has_libros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Autores">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Autores_has_libros">
+        <PropertyRef Name="autores_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="libroseditor_FK">
+    <End Role="Editoriales" Type="Self.Editoriales" Multiplicity="0..1" />
+    <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Editoriales">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Libros">
+        <PropertyRef Name="editorial_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_listar_biblioteca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="DBHeadsModelStoreContainer">
+    <EntitySet Name="Autores" EntityType="Self.Autores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Autores_has_libros" EntityType="Self.Autores_has_libros" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Editoriales" EntityType="Self.Editoriales" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Libros" EntityType="Self.Libros" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tusuario" EntityType="Self.tusuario" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tusuario].[id] AS [id], 
+[tusuario].[usuario] AS [usuario], 
+[tusuario].[password] AS [password]
+FROM [dbo].[tusuario] AS [tusuario]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="Haslibros_FK" Association="Self.Haslibros_FK">
+      <End Role="Libros" EntitySet="Libros" />
+      <End Role="Autores_has_libros" EntitySet="Autores_has_libros" />
+    </AssociationSet>
+    <AssociationSet Name="HaslibrosAutores_FK" Association="Self.HaslibrosAutores_FK">
+      <End Role="Autores" EntitySet="Autores" />
+      <End Role="Autores_has_libros" EntitySet="Autores_has_libros" />
+    </AssociationSet>
+    <AssociationSet Name="libroseditor_FK" Association="Self.libroseditor_FK">
+      <End Role="Editoriales" EntitySet="Editoriales" />
+      <End Role="Libros" EntitySet="Libros" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

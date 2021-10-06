@@ -1,0 +1,90 @@
+﻿@model IEnumerable<WebAppHeadsBooks.Models.Library>
+
+    @{ ViewBag.Title = "Biblioteca TRAVEL."; }
+    <h2>@ViewBag.Title.</h2>
+
+    <p>Explora los contenidos que la Biblioteca Digital que <b>Travel</b> ha seleccionado para ti.</p>
+
+    <div class="row">
+        <!-- Color Open Accordion start -->
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-header-text"> </h5>
+                </div>
+                <div class="card-block accordion-block color-accordion-block">
+                    <div class="color-accordion" id="color-accordion">
+                        <!--Model.Employees.Count() -->
+                        @foreach (var item in Model)
+                        {
+                         <a class="accordion-msg b-none ">  @item.titulo </a>
+                            <div class="accordion-desc">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="~/Content/img/BookLib.png" alt="Lib. Travel" class="img-responsive">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="col-md-10">
+                                            <h5><b>Autor</b></h5>
+                                            <span class="ml-4">@item.Autor </span>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h5><b>Editorial</b></h5>
+                                            <span class="ml-4"> @item.Editorial</span>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h5><b>Páginas</b></h5>
+                                            <span class="ml-4">@item.n_paginas</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            @item.sinopsis
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+
+
+
+
+                        @*<a class="accordion-msg bg-dark-primary b-none waves-effect waves-light">
+            Lorem Message
+            2
+        </a>
+        <div class="accordion-desc">
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                Lorem Ipsum passages, and more .
+            </p>
+        </div>
+        <a class="accordion-msg bg-darkest-primary b-none waves-effect waves-light">
+            Lorem Message
+            3
+        </a>
+        <div class="accordion-desc">
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                Lorem Ipsum passages, and more .
+            </p>
+        </div>*@
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Color Open Accordion ends -->
+    </div>
+
+
+    <script type="text/javascript">
+
+    var MensajeBox = @Html.Raw(Json.Encode(ViewBag.MensajeBox));
+    NotificaLoad(MensajeBox);
+    </script>

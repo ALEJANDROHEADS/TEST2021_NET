@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBHeadsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Autores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="55" />
+          <Property Name="apellidos" Type="varchar" MaxLength="55" />
+        </EntityType>
+        <EntityType Name="Autores_has_libros">
+          <Key>
+            <PropertyRef Name="autores_id" />
+            <PropertyRef Name="libros_id" />
+          </Key>
+          <Property Name="autores_id" Type="int" Nullable="false" />
+          <Property Name="libros_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Editoriales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="55" />
+          <Property Name="sede" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="Libros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="55" />
+          <Property Name="sinopsis" Type="varchar" MaxLength="5550" />
+          <Property Name="n_paginas" Type="varchar" MaxLength="5" />
+          <Property Name="editorial_id" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'D:\DEVELOPMET\APPNETHEADS\BASEDATOS\DBHEADS.MDF.dbo.tusuario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="tusuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <Association Name="Haslibros_FK">
+          <End Role="Libros" Type="Self.Libros" Multiplicity="1" />
+          <End Role="Autores_has_libros" Type="Self.Autores_has_libros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libros">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Autores_has_libros">
+              <PropertyRef Name="libros_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="HaslibrosAutores_FK">
+          <End Role="Autores" Type="Self.Autores" Multiplicity="1" />
+          <End Role="Autores_has_libros" Type="Self.Autores_has_libros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Autores_has_libros">
+              <PropertyRef Name="autores_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="libroseditor_FK">
+          <End Role="Editoriales" Type="Self.Editoriales" Multiplicity="0..1" />
+          <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Editoriales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Libros">
+              <PropertyRef Name="editorial_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_listar_biblioteca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DBHeadsModelStoreContainer">
+          <EntitySet Name="Autores" EntityType="Self.Autores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Autores_has_libros" EntityType="Self.Autores_has_libros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Editoriales" EntityType="Self.Editoriales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Libros" EntityType="Self.Libros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tusuario" EntityType="Self.tusuario" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[tusuario].[id] AS [id], 
+[tusuario].[usuario] AS [usuario], 
+[tusuario].[password] AS [password]
+FROM [dbo].[tusuario] AS [tusuario]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="Haslibros_FK" Association="Self.Haslibros_FK">
+            <End Role="Libros" EntitySet="Libros" />
+            <End Role="Autores_has_libros" EntitySet="Autores_has_libros" />
+          </AssociationSet>
+          <AssociationSet Name="HaslibrosAutores_FK" Association="Self.HaslibrosAutores_FK">
+            <End Role="Autores" EntitySet="Autores" />
+            <End Role="Autores_has_libros" EntitySet="Autores_has_libros" />
+          </AssociationSet>
+          <AssociationSet Name="libroseditor_FK" Association="Self.libroseditor_FK">
+            <End Role="Editoriales" EntitySet="Editoriales" />
+            <End Role="Libros" EntitySet="Libros" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBHeadsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Autores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Libros" Relationship="Self.Autores_has_libros" FromRole="Autores" ToRole="Libros" />
+        </EntityType>
+        <EntityType Name="Editoriales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="sede" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Libros" Relationship="Self.libroseditor_FK" FromRole="Editoriales" ToRole="Libros" />
+        </EntityType>
+        <EntityType Name="Libros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="sinopsis" Type="String" MaxLength="5550" FixedLength="false" Unicode="false" />
+          <Property Name="n_paginas" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="editorial_id" Type="Int32" />
+          <NavigationProperty Name="Editoriales" Relationship="Self.libroseditor_FK" FromRole="Libros" ToRole="Editoriales" />
+          <NavigationProperty Name="Autores" Relationship="Self.Autores_has_libros" FromRole="Libros" ToRole="Autores" />
+        </EntityType>
+        <EntityType Name="tusuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="libroseditor_FK">
+          <End Role="Editoriales" Type="Self.Editoriales" Multiplicity="0..1" />
+          <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Editoriales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Libros">
+              <PropertyRef Name="editorial_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Autores_has_libros">
+          <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
+          <End Role="Autores" Type="Self.Autores" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DBHeadsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Autores" EntityType="Self.Autores" />
+          <EntitySet Name="Editoriales" EntityType="Self.Editoriales" />
+          <EntitySet Name="Libros" EntityType="Self.Libros" />
+          <EntitySet Name="tusuario" EntityType="Self.tusuario" />
+          <AssociationSet Name="libroseditor_FK" Association="Self.libroseditor_FK">
+            <End Role="Editoriales" EntitySet="Editoriales" />
+            <End Role="Libros" EntitySet="Libros" />
+          </AssociationSet>
+          <AssociationSet Name="Autores_has_libros" Association="Self.Autores_has_libros">
+            <End Role="Libros" EntitySet="Libros" />
+            <End Role="Autores" EntitySet="Autores" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBHeadsModelStoreContainer" CdmEntityContainer="DBHeadsEntities">
+          <EntitySetMapping Name="Autores">
+            <EntityTypeMapping TypeName="DBHeadsModel.Autores">
+              <MappingFragment StoreEntitySet="Autores">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Editoriales">
+            <EntityTypeMapping TypeName="DBHeadsModel.Editoriales">
+              <MappingFragment StoreEntitySet="Editoriales">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="sede" ColumnName="sede" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libros">
+            <EntityTypeMapping TypeName="DBHeadsModel.Libros">
+              <MappingFragment StoreEntitySet="Libros">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="sinopsis" ColumnName="sinopsis" />
+                <ScalarProperty Name="n_paginas" ColumnName="n_paginas" />
+                <ScalarProperty Name="editorial_id" ColumnName="editorial_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tusuario">
+            <EntityTypeMapping TypeName="DBHeadsModel.tusuario">
+              <MappingFragment StoreEntitySet="tusuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Autores_has_libros" TypeName="DBHeadsModel.Autores_has_libros" StoreEntitySet="Autores_has_libros">
+            <EndProperty Name="Libros">
+              <ScalarProperty Name="id" ColumnName="libros_id" />
+            </EndProperty>
+            <EndProperty Name="Autores">
+              <ScalarProperty Name="id" ColumnName="autores_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

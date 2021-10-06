@@ -1,0 +1,9 @@
+D:\DEVELOPMET\AppNetHeads\WebAppHeadsBooks\LogicaFuncional\bin\Debug\LogicaFuncional.dll.config
+D:\DEVELOPMET\AppNetHeads\WebAppHeadsBooks\LogicaFuncional\bin\Debug\LogicaFuncional.dll
+D:\DEVELOPMET\AppNetHeads\WebAppHeadsBooks\LogicaFuncional\bin\Debug\LogicaFuncional.pdb
+D:\DEVELOPMET\AppNetHeads\WebAppHeadsBooks\LogicaFuncional\bin\Debug\EntityFramework.dll
+D:\DEVELOPMET\AppNetHeads\WebAppHeadsBooks\LogicaFuncional\bin\Debug\EntityFramework.xml
+D:\DEVELOPMET\AppNetHeads\WebAppHeadsBooks\LogicaFuncional\obj\Debug\LogicaFuncional.csproj.CoreCompileInputs.cache
+D:\DEVELOPMET\AppNetHeads\WebAppHeadsBooks\LogicaFuncional\obj\Debug\LogicaFuncional.csproj.CopyComplete
+D:\DEVELOPMET\AppNetHeads\WebAppHeadsBooks\LogicaFuncional\obj\Debug\LogicaFuncional.dll
+D:\DEVELOPMET\AppNetHeads\WebAppHeadsBooks\LogicaFuncional\obj\Debug\LogicaFuncional.pdb

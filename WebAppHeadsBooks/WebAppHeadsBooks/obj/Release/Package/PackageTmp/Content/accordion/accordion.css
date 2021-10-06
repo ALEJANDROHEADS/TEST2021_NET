@@ -1,0 +1,101 @@
+﻿/*CESAR ALEJANDRO CABEZAS HEADS.NET 2021*/
+
+/**  =====================
+      Accordion css start
+==========================  **/
+
+.accordion-msg {
+    display: block;
+    color: #222222;
+    padding: 14px 20px;
+    border-top: 1px solid #ddd;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+    .accordion-msg:focus,
+    .accordion-msg:hover {
+        text-decoration: none;
+        outline: none;
+    }
+
+.faq-accordion .accordion-desc {
+    padding: 20px;
+}
+
+.accordion-desc {
+    color: #222222;
+    padding: 0 20px 20px;
+}
+
+#color-accordion .accordion-desc {
+    margin-top: 14px;
+}
+
+.ui-accordion-header-icon {
+    float: right;
+    font-size: 20px;
+}
+
+.accordion-title {
+    margin-bottom: 0;
+}
+
+.accordion-block {
+    padding: 0;
+}
+
+    .accordion-block p {
+        margin-bottom: 0;
+    }
+
+.color-accordion-block a.ui-state-active,
+.color-accordion-block a:focus,
+.color-accordion-block a:hover {
+    color: #6e7774;
+    /* background: #4680ff;*/
+    background: rgb(184,186,198); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(184,186,198,1) 0%, rgba(219,220,226,1) 89%, rgba(184,186,198,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(184,186,198,1) 0%,rgba(219,220,226,1) 89%,rgba(184,186,198,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(184,186,198,1) 0%,rgba(219,220,226,1) 89%,rgba(184,186,198,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8bac6', endColorstr='#b8bac6',GradientType=0 ); /* IE6-9 */
+}
+
+a.bg-default:focus,
+a.bg-default:hover {
+    background-color: #f0f0f0 !important;
+    color: #fff;
+}
+
+a.bg-primary:focus,
+a.bg-primary:hover {
+    background-color: #77aaff !important;
+    color: #fff;
+}
+
+a.bg-success:focus,
+a.bg-success:hover {
+    background-color: #1aeb72 !important;
+    color: #fff;
+}
+
+a.bg-info:focus,
+a.bg-info:hover {
+    background-color: #08e3ff !important;
+    color: #fff;
+}
+
+a.bg-warning:focus,
+a.bg-warning:hover {
+    background-color: #ffe733 !important;
+    color: #fff;
+}
+
+a.bg-danger:focus,
+a.bg-danger:hover {
+    background-color: #ff8585 !important;
+    color: #fff;
+}
+
+
+/**====== Accordion css end ======**/

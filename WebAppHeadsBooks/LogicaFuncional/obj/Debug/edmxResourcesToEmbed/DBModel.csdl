@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBHeadsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Autores">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+    <Property Name="apellidos" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Libros" Relationship="Self.Autores_has_libros" FromRole="Autores" ToRole="Libros" />
+  </EntityType>
+  <EntityType Name="Editoriales">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+    <Property Name="sede" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Libros" Relationship="Self.libroseditor_FK" FromRole="Editoriales" ToRole="Libros" />
+  </EntityType>
+  <EntityType Name="Libros">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="titulo" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+    <Property Name="sinopsis" Type="String" MaxLength="5550" FixedLength="false" Unicode="false" />
+    <Property Name="n_paginas" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="editorial_id" Type="Int32" />
+    <NavigationProperty Name="Editoriales" Relationship="Self.libroseditor_FK" FromRole="Libros" ToRole="Editoriales" />
+    <NavigationProperty Name="Autores" Relationship="Self.Autores_has_libros" FromRole="Libros" ToRole="Autores" />
+  </EntityType>
+  <Association Name="libroseditor_FK">
+    <End Role="Editoriales" Type="Self.Editoriales" Multiplicity="0..1" />
+    <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Editoriales">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Libros">
+        <PropertyRef Name="editorial_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Autores_has_libros">
+    <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
+    <End Role="Autores" Type="Self.Autores" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="DBHeadsEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Autores" EntityType="Self.Autores" />
+    <EntitySet Name="Editoriales" EntityType="Self.Editoriales" />
+    <EntitySet Name="Libros" EntityType="Self.Libros" />
+    <AssociationSet Name="libroseditor_FK" Association="Self.libroseditor_FK">
+      <End Role="Editoriales" EntitySet="Editoriales" />
+      <End Role="Libros" EntitySet="Libros" />
+    </AssociationSet>
+    <AssociationSet Name="Autores_has_libros" Association="Self.Autores_has_libros">
+      <End Role="Libros" EntitySet="Libros" />
+      <End Role="Autores" EntitySet="Autores" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
